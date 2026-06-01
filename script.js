@@ -1,90 +1,90 @@
-const blob =
-document.getElementById(
-  "blob"
-);
+const image = document.getElementById("heroImage");
+const portal = document.getElementById("portal");
 
-let mouseX = 0;
-let mouseY = 0;
+let mx = window.innerWidth / 2;
+let my = window.innerHeight / 2;
 
-let blobX = 0;
-let blobY = 0;
+let px = mx;
+let py = my;
 
-let velocityX = 0;
-let velocityY = 0;
+let vx = 0;
+let vy = 0;
 
-const zone =
-document.querySelector(
-  ".image-zone"
-);
+let lastX = px;
+let lastY = py;
 
-window.addEventListener(
-  "mousemove",
-  (e)=>{
+window.addEventListener("mousemove", (e) => {
+  mx = e.clientX;
+  my = e.clientY;
+});
 
-    const rect =
-      zone.getBoundingClientRect();
+function animate() {
 
-    mouseX =
-      e.clientX -
-      rect.left;
+  px += (mx - px) * 0.055;
+  py += (my - py) * 0.055;
 
-    mouseY =
-      e.clientY -
-      rect.top;
+  vx = px - lastX;
+  vy = py - lastY;
 
-  }
-);
+  lastX = px;
+  lastY = py;
 
-function animate(){
-
-  velocityX =
-    (mouseX - blobX)
-    * 0.08;
-
-  velocityY =
-    (mouseY - blobY)
-    * 0.08;
-
-  blobX += velocityX;
-  blobY += velocityY;
-
-  const speed =
-  Math.min(
-    Math.sqrt(
-      velocityX*velocityX +
-      velocityY*velocityY
-    ),
-    40
+  const speed = Math.min(
+    Math.sqrt(vx * vx + vy * vy),
+    60
   );
 
-  const stretch =
-    1 + speed * 0.03;
+  const time =
+    performance.now() * 0.002;
 
-  const squash =
-    1 - speed * 0.01;
+  const wobble =
+    Math.sin(time) * 18 +
+    Math.cos(time * 1.6) * 10;
 
-  blob.style.left =
-    blobX + "px";
+  const radius =
+    240 +
+    wobble +
+    speed * 1.5;
 
-  blob.style.top =
-    blobY + "px";
+  const stretchX =
+    1 + Math.abs(vx) * 0.01;
 
-  blob.style.transform =
-  `
-  translate(-50%,-50%)
-  scale(${stretch},${squash})
-  rotate(${speed*2}deg)
-  `;
+  const stretchY =
+    1 + Math.abs(vy) * 0.01;
 
-  requestAnimationFrame(
-    animate
-  );
+  portal.style.left =
+    px + "px";
+
+  portal.style.top =
+    py + "px";
+
+  portal.style.transform =
+    `
+    translate(-50%,-50%)
+    scale(${stretchX},${stretchY})
+    `;
+
+  image.style.clipPath =
+    `
+    ellipse(
+      ${radius * stretchX}px
+      ${radius * stretchY}px
+      at
+      ${px}px
+      ${py}px
+    )
+    `;
+
+  image.style.transform =
+    `
+    translate(
+      ${(px - window.innerWidth / 2) * 0.01}px,
+      ${(py - window.innerHeight / 2) * 0.01}px
+    )
+    scale(1.06)
+    `;
+
+  requestAnimationFrame(animate);
 }
-
-blobX =
-zone.offsetWidth/2;
-
-blobY =
-zone.offsetHeight/2;
 
 animate();

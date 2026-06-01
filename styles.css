@@ -11,18 +11,35 @@ body{
 }
 
 .hero{
+  position:relative;
   width:100vw;
   height:100vh;
+  overflow:hidden;
+}
 
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.hero-image{
 
-  padding:0 8vw;
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  clip-path:circle(0px at 50% 50%);
 }
 
 .hero-content{
-  width:45%;
+
+  position:absolute;
+
+  left:8vw;
+  top:15vh;
+
+  color:#111;
+
+  z-index:2;
 }
 
 .hero-content h1{
@@ -33,8 +50,6 @@ body{
   line-height:.88;
 
   letter-spacing:-0.06em;
-
-  color:#111;
 }
 
 .hero-content p{
@@ -47,57 +62,19 @@ body{
   clamp(18px,2vw,26px);
 }
 
-.image-zone{
-
-  width:42vw;
-  height:70vh;
-
-  position:relative;
-}
-
-.image-zone img{
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  border-radius:28px;
-}
-
-/* LIQUID BLOB */
-
-#blob{
+#portal{
 
   position:absolute;
 
-  width:260px;
-  height:260px;
+  width:220px;
+  height:220px;
 
-  left:50%;
-  top:50%;
-
-  border-radius:58% 42% 63% 37% /
-                43% 55% 45% 57%;
-
-  backdrop-filter:blur(18px);
-
-  background:
-  rgba(
-    255,
-    255,
-    255,
-    0.18
-  );
-
-  border:
-  1px solid
-  rgba(255,255,255,.3);
+  border-radius:50%;
 
   transform:
   translate(-50%,-50%);
 
   pointer-events:none;
 
-  mix-blend-mode:screen;
+  z-index:3;
 }
