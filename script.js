@@ -1,5 +1,6 @@
 const image = document.getElementById("heroImage");
 const portal = document.getElementById("portal");
+const clock = document.getElementById("clock");
 
 let mx = window.innerWidth / 2;
 let my = window.innerHeight / 2;
@@ -17,6 +18,24 @@ window.addEventListener("mousemove", (e) => {
   mx = e.clientX;
   my = e.clientY;
 });
+
+function updateParisClock() {
+
+  const parisTime =
+    new Date().toLocaleTimeString(
+      "en-GB",
+      {
+        timeZone: "Europe/Paris",
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+    );
+
+  clock.textContent = parisTime;
+}
+
+setInterval(updateParisClock, 1000);
+updateParisClock();
 
 function animate() {
 

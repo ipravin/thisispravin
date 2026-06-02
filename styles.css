@@ -18,7 +18,6 @@ body{
 }
 
 .hero-image{
-
   position:absolute;
   inset:0;
 
@@ -30,8 +29,81 @@ body{
   clip-path:circle(0px at 50% 50%);
 }
 
-.hero-content{
+.topbar{
+  position:fixed;
 
+  top:28px;
+  left:32px;
+  right:32px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+
+  z-index:20;
+
+  pointer-events:none;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.logo{
+  font-size:22px;
+
+  font-weight:600;
+
+  letter-spacing:-0.06em;
+
+  color:#111;
+}
+
+.chapter{
+  font-size:11px;
+
+  color:#777;
+
+  letter-spacing:0.18em;
+}
+
+.status{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+
+  gap:3px;
+}
+
+.status .label{
+  font-size:10px;
+
+  letter-spacing:0.22em;
+
+  color:#888;
+}
+
+.status .city{
+  font-size:12px;
+
+  font-weight:600;
+
+  color:#111;
+}
+
+.status .clock{
+  font-size:16px;
+
+  font-weight:500;
+
+  letter-spacing:-0.02em;
+
+  color:#111;
+}
+
+.hero-content{
   position:absolute;
 
   left:8vw;
@@ -43,7 +115,6 @@ body{
 }
 
 .hero-content h1{
-
   font-size:
   clamp(60px,10vw,140px);
 
@@ -53,7 +124,6 @@ body{
 }
 
 .hero-content p{
-
   margin-top:24px;
 
   color:#666;
@@ -62,8 +132,39 @@ body{
   clamp(18px,2vw,26px);
 }
 
-#portal{
+.scroll-indicator{
 
+  position:absolute;
+
+  left:32px;
+  bottom:28px;
+
+  font-size:10px;
+
+  letter-spacing:0.22em;
+
+  color:#777;
+
+  z-index:20;
+}
+
+.section-progress{
+
+  position:absolute;
+
+  right:32px;
+  bottom:28px;
+
+  font-size:10px;
+
+  letter-spacing:0.22em;
+
+  color:#777;
+
+  z-index:20;
+}
+
+#portal{
   position:absolute;
 
   width:220px;
