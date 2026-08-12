@@ -9,66 +9,63 @@
 </head>
 
 <body>
-
   <header class="topbar">
-
     <div class="brand">
-
-      <div class="logo">
-        P/
-      </div>
-
-      <div class="chapter">
-        01
-      </div>
-
+      <div class="logo">P/</div>
+      <div class="chapter" id="chapterIndicator">01</div>
     </div>
 
     <div class="status">
       <span class="label">CURRENTLY</span>
-      <span class="city">PARIS, FR</span>
+      <span class="city" id="cityIndicator">PARIS, FR</span>
       <span class="clock" id="clock">00:00</span>
     </div>
-
   </header>
 
-  <section class="hero">
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <img src="assets/eiffel.jpg" class="hero-image" id="heroImage" alt="Pravin in Paris">
+        <div id="portal"></div>
 
-    <img
-      src="assets/eiffel.jpg"
-      class="hero-image"
-      id="heroImage"
-      alt="Pravin in Paris">
+        <div class="hero-content">
+          <h1>Somewhere between almosts<br>and what ifs.</h1>
+          <p>Kolkata. Paris. Somewhere ahead.</p>
+        </div>
 
-    <div id="portal"></div>
+        <div class="scroll-indicator" aria-hidden="true">SCROLL TO CONTINUE</div>
+        <div class="section-progress" aria-hidden="true">01 / 02</div>
+      </div>
+    </section>
 
-    <div class="hero-content">
+    <section class="bridge-section" id="origin" aria-label="Origin: Kolkata">
+      <div class="bridge-sticky">
+        <div class="bridge-photo" id="bridgePhoto" role="img" aria-label="Howrah Bridge, Kolkata"></div>
+        <canvas class="bridge-canvas" id="bridgeCanvas" aria-hidden="true"></canvas>
 
-      <h1>
-        Somewhere<br>
-        between<br>
-        almosts<br>
-        and what ifs.
-      </h1>
+        <div class="bridge-heading" id="bridgeHeading">
+          <span>// CHAPTER 02</span>
+          <strong>Kolkata.</strong>
+        </div>
+        <div class="bridge-status" id="bridgeStatus">
+          <span id="bridgeStatusText">constructing</span>
+          <i><b id="bridgeProgress"></b></i>
+        </div>
+        <div class="origin-formation" id="originFormation">
+          <span class="origin-tag">Origin / 02</span>
+          <h2>I learned to love cars before I ever drove one.</h2>
+          <p>
+            Growing up in Kolkata, cars weren't just machines. They were movement,<br>
+            freedom, possibility. Long before I understood strategy, product or business,<br>
+            I was fascinated by where they could take people.
+          </p>
+        </div>
+        <p class="bridge-caption" id="bridgeCaption">A roadside.<br>Cars passing.<br>Dreaming before knowing.</p>
+        <p class="bridge-location" id="bridgeLocation">Howrah Bridge<br>Kolkata, India</p>
+      </div>
+    </section>
+  </main>
 
-      <p>
-        Kolkata. Paris. Somewhere ahead.
-      </p>
-
-    </div>
-
-    <div class="scroll-indicator">
-      SCROLL TO CONTINUE
-    </div>
-
-    <div class="section-progress">
-      01 / 04
-    </div>
-
-  </section>
-
-  <script src="script.js"></script>
-
+  <script type="module" src="script.js"></script>
 </body>
-
 </html>
