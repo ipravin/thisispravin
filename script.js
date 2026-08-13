@@ -208,3 +208,21 @@ addEventListener('mousemove',(event)=>{mx=event.clientX;my=event.clientY;}); add
   // initial sync
   requestAnimationFrame(updateVideoByBridgeProgress);
 })();
+
+// Origin section transition: fade/slide in when scrolled into view
+(function setupOriginTransition(){
+  const origin = document.getElementById('origin');
+  if (!origin) return;
+  try {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) origin.classList.add('is-visible');
+        else origin.classList.remove('is-visible');
+      });
+    }, { threshold: 0.12 });
+    io.observe(origin);
+  } catch (e) {
+    // fallback: set visible immediately
+    origin.classList.add('is-visible');
+  }
+})();

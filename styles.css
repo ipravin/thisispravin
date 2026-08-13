@@ -536,3 +536,15 @@ body { font-family:var(--sans); color:var(--ink); }
   z-index: 5;
 }
 
+/* Smooth fade/slide transition when entering from hero */
+.origin-section {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out);
+  will-change: opacity, transform;
+}
+.origin-section.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
