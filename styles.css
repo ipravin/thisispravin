@@ -15,14 +15,89 @@ html {
 
 body {
   min-height: 100vh;
-  background: #f6f8fa;
-  color: #111;
+  background: #f5f7f9;
+  color: #16181b;
   overflow-x: hidden;
   font-family: Inter, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
 main {
   position: relative;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(22, 24, 27, 0.98);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  z-index: 200;
+  transform: translateY(-120%);
+  transition: transform 0.25s ease;
+}
+
+.skip-link:focus,
+.skip-link:hover {
+  transform: translateY(0);
+}
+
+.eyebrow {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hero-actions {
+  margin-top: 32px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.7rem;
+  border-radius: 999px;
+  background: #1f2937;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.hero-cta:hover,
+.hero-cta:focus-visible {
+  background: #111827;
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(17, 24, 39, 0.18);
+}
+
+.hero .hero-content {
+  position: absolute;
+  left: 6vw;
+  top: 18vh;
+  max-width: min(520px, 88vw);
+  z-index: 2;
 }
 
 .topbar {
@@ -196,7 +271,7 @@ main {
 .origin-section {
   position: relative;
   min-height: 110vh;
-  background: #f8fbfd;
+  background: rgba(246, 249, 252, 0.96);
   padding: 140px 8vw 120px;
   z-index: 5;
 }
@@ -240,7 +315,7 @@ main {
   max-width: 460px;
   aspect-ratio: 4 / 5;
   border-radius: 28px;
-  background: radial-gradient(circle at top, #e8f2f7 0%, #cbd9e5 45%, #8d9fb2 100%);
+  background: none;
   box-shadow: 0 24px 62px rgba(20, 35, 60, 0.12);
   transition: transform 0.8s ease, box-shadow 0.8s ease;
 }
@@ -249,6 +324,24 @@ main {
   transform: translateY(-5px);
   box-shadow: 0 40px 92px rgba(20, 35, 60, 0.16);
 }
+
+/* Ensure scrub video displays full-bleed inside the card */
+.origin-image.bridge-video,
+video.origin-image,
+video.bridge-video {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  border-radius: 28px;
+  object-fit: cover;
+  display: block;
+  background: none;
+}
+
+#/* Hide legacy bridge canvas to stop particle drawing */
+#bridgeCanvas, canvas.bridge-canvas { display: none !important; }
+.bridge-photo { display: none !important; }
 
 @media (max-width: 980px) {
   .topbar {
@@ -378,65 +471,45 @@ main {
   }
 }
 
-
-/* ORIGIN BRIDGE TRANSITION */
-.hero-inner {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  min-height: min(100vh, 100dvh);
-  overflow: hidden;
+.site-footer {
+  margin-top: 80px;
+  padding: 64px 8vw;
+  text-align: center;
+  color: #6b7280;
+  background: rgba(245, 247, 249, 0.9);
+  border-top: 1px solid rgba(17, 24, 39, 0.06);
 }
 
-.bridge-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.site-footer p {
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 0.98rem;
+  line-height: 1.8;
 }
 
-.origin-formation {
-  position: absolute;
-  left: 6vw;
-  bottom: 18vh;
-  max-width: 42rem;
-  z-index: 4;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  pointer-events: none;
+.hero {
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 18%),
+    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.25), transparent 15%),
+    linear-gradient(180deg, rgba(245, 247, 249, 0.9), rgba(245, 247, 249, 0.6));
 }
 
-.origin-formation.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.hero-image {
+  filter: saturate(0.98) contrast(1.02);
 }
 
-.origin-tag {
-  display: inline-flex;
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  color: #777;
-  margin-bottom: 18px;
-  text-transform: uppercase;
+.hero-content h1 {
+  font-size: clamp(44px, 8vw, 78px);
 }
 
-.origin-formation h2 {
-  font-size: clamp(40px, 6vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: #111;
-  max-width: 12ch;
-  margin-bottom: 22px;
+.hero-content p {
+  color: #4b5563;
+  margin-top: 24px;
 }
 
-.origin-formation p {
-  color: #555;
-  font-size: clamp(16px, 2vw, 20px);
-  line-height: 1.86;
-  max-width: 32rem;
+.scroll-indicator {
+  left: 34px;
+  bottom: 28px;
+  color: #6b7280;
 }
 
 /* Restored Paris → Kolkata chapter system. */
@@ -463,62 +536,3 @@ body { font-family:var(--sans); color:var(--ink); }
   z-index: 5;
 }
 
-/* HOWRAH STRUCTURAL TRANSITION */
-  .hero-inner {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  min-height: min(100vh, 100dvh);
-  overflow: hidden;
-}
-
-.bridge-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.origin-formation {
-  position: absolute;
-  left: 6vw;
-  bottom: 18vh;
-  max-width: 42rem;
-  z-index: 4;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  pointer-events: none;
-}
-
-.origin-formation.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.origin-tag {
-  display: inline-flex;
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  color: #777;
-  margin-bottom: 18px;
-  text-transform: uppercase;
-}
-
-.origin-formation h2 {
-  font-size: clamp(40px, 6vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: #111;
-  max-width: 12ch;
-  margin-bottom: 22px;
-}
-
-.origin-formation p {
-  color: #555;
-  font-size: clamp(16px, 2vw, 20px);
-  line-height: 1.86;
-  max-width: 32rem;
-}

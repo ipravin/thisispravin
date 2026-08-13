@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/ipravin/thisispravin#readme",
   "devDependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
     "vite": "^8.0.16"
+  },
+  "dependencies": {
+    "ffmpeg": "^0.0.4"
   }
 }
