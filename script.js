@@ -189,7 +189,17 @@ addEventListener('mousemove',(event)=>{mx=event.clientX;my=event.clientY;}); add
   bridgeVideo.playsInline = true;
   bridgeVideo.preload = 'auto';
 
+  // Respect user's reduced motion preference: enable controls and skip auto-scrub
+  if (reducedMotion) {
+    bridgeVideo.controls = true;
+    bridgeVideo.pause();
+    console.info('bridgeVideo: reduced-motion enabled, controls shown, auto-scrub disabled');
+  } else {
+    bridgeVideo.controls = false;
+  }
+
   function updateVideoByBridgeProgress() {
+    if (reducedMotion) return; // do not auto-scrub when reduced motion is requested
     const p = typeof bridgeProgress === 'function' ? bridgeProgress() : 0;
     if (bridgeVideo.duration && !isNaN(bridgeVideo.duration)) {
       // accelerate mapping from scroll progress -> video progress

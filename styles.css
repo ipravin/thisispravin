@@ -92,6 +92,17 @@ main {
   box-shadow: 0 18px 30px rgba(17, 24, 39, 0.18);
 }
 
+/* Polished focus states */
+.hero-cta:focus-visible {
+  outline: 3px solid rgba(34,197,94,0.18);
+  outline-offset: 4px;
+}
+.topbar .status .city:focus-visible,
+.topbar .brand .logo:focus-visible {
+  outline: 2px solid rgba(99,102,241,0.12);
+  outline-offset: 3px;
+}
+
 .hero .hero-content {
   position: absolute;
   left: 6vw;
@@ -546,5 +557,16 @@ body { font-family:var(--sans); color:var(--ink); }
 .origin-section.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* Make scrub video feel elevated and crisp */
+video.origin-image, video.bridge-video {
+  box-shadow: 0 24px 44px rgba(2,6,23,0.12);
+  border-radius: 20px;
+  transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+video.origin-image:focus-visible, video.bridge-video:focus-visible {
+  outline: 4px solid rgba(59,130,246,0.12);
+  outline-offset: 6px;
 }
 
