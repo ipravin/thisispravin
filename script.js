@@ -47,10 +47,10 @@ function updateHero(progress) {
   if (!chapterIndicator || !image || !portal || !heroContent) return;
   chapterIndicator.textContent = '01';
   const fade = remap(progress, .45, .96);
-  image.style.opacity = `${1 - fade * .95}`;
-  image.style.transform = `translate(${(px - innerWidth / 2) * .006}px, ${(py - innerHeight / 2) * .006}px) scale(${1.02 - fade * .08})`;
-  portal.style.opacity = `${1 - fade}`;
-  heroContent.classList.toggle('faded', fade > .08);
+  // Keep hero visuals steady; let the next section fade in instead.
+  image.style.opacity = `1`;
+  image.style.transform = `translate(${(px - innerWidth / 2) * .006}px, ${(py - innerHeight / 2) * .006}px) scale(1.02)`;
+  portal.style.opacity = `1`;
 }
 
 function animatePortal() {
@@ -118,7 +118,14 @@ function resizeBridge() {
 }
 function bridgeProgress() {
   if (!bridgeSection) return 0;
-  return clamp(-bridgeSection.getBoundingClientRect().top / Math.max(1, bridgeSection.offsetHeight - innerHeight));
+  const rect = bridgeSection.getBoundingClientRect();
+  const sectionHeight = bridgeSection.offsetHeight || (rect.bottom - rect.top);
+  // Start scrub as soon as any part of the section is visible in the viewport.
+  // Map from when the section's top enters the bottom of the viewport (rect.top < innerHeight)
+  // through the section's traversal: progress = (viewportHeight - rect.top) / (viewportHeight + sectionHeight)
+  const total = innerHeight + sectionHeight;
+  const p = clamp((innerHeight - rect.top) / Math.max(1, total));
+  return p;
 }
 function drawBridge(progress) {
   if (!bridgeHeading || !bridgeStatus || !bridgeCaption || !bridgeLocation || !bridgeStatusText || !bridgeProgressBar || !originFormation) return;
@@ -167,7 +174,9 @@ addEventListener('mousemove',(event)=>{mx=event.clientX;my=event.clientY;}); add
     bv.setAttribute('playsinline', '');
     bv.muted = true;
     bv.preload = 'auto';
-    bv.setAttribute('aria-hidden', 'true');
+    // Make the scrub video accessible: provide a label and make it keyboard-focusable.
+    bv.setAttribute('aria-label', 'Howrah Bridge assembly video');
+    bv.setAttribute('tabindex', '0');
     // ensure the video fills its host visually
     bv.style.width = '100%';
     bv.style.height = '100%';
@@ -198,14 +207,34 @@ addEventListener('mousemove',(event)=>{mx=event.clientX;my=event.clientY;}); add
     bridgeVideo.controls = false;
   }
 
+  // Smooth scrub: map scroll -> target time, then lerp currentTime toward target to reduce stutter.
+  let bridgeTargetTime = 0;
+  let bridgeLerpedTime = 0;
+  const SMOOTH_FACTOR = 0.18; // lerp factor (0..1)
+  const MIN_SEEK_DELTA = 0.02; // seconds threshold to perform a seek
+
   function updateVideoByBridgeProgress() {
     if (reducedMotion) return; // do not auto-scrub when reduced motion is requested
     const p = typeof bridgeProgress === 'function' ? bridgeProgress() : 0;
     if (bridgeVideo.duration && !isNaN(bridgeVideo.duration)) {
-      // accelerate mapping from scroll progress -> video progress
       const targetProgress = Math.min(1, Math.max(0, p * SCRUB_SPEED));
-      bridgeVideo.currentTime = targetProgress * bridgeVideo.duration;
+      bridgeTargetTime = targetProgress * bridgeVideo.duration;
     }
+  }
+
+  function smoothBridgeScrub() {
+    if (!bridgeVideo || reducedMotion) { requestAnimationFrame(smoothBridgeScrub); return; }
+    if (bridgeVideo.duration && !isNaN(bridgeVideo.duration)) {
+      // initialize lerped time if it's the first run
+      if (bridgeLerpedTime === 0) bridgeLerpedTime = bridgeVideo.currentTime || 0;
+      // lerp toward target
+      bridgeLerpedTime += (bridgeTargetTime - bridgeLerpedTime) * SMOOTH_FACTOR;
+      const diff = Math.abs((bridgeVideo.currentTime || 0) - bridgeLerpedTime);
+      if (diff > MIN_SEEK_DELTA) {
+        try { bridgeVideo.currentTime = bridgeLerpedTime; } catch (e) { /* ignore seek errors */ }
+      }
+    }
+    requestAnimationFrame(smoothBridgeScrub);
   }
 
   addEventListener('scroll', () => requestAnimationFrame(updateVideoByBridgeProgress), { passive: true });
@@ -215,19 +244,40 @@ addEventListener('mousemove',(event)=>{mx=event.clientX;my=event.clientY;}); add
     updateVideoByBridgeProgress();
   });
   bridgeVideo.addEventListener('error', (e) => console.error('bridgeVideo error', e));
-  // initial sync
-  requestAnimationFrame(updateVideoByBridgeProgress);
+
+  // start the smoothing loop
+  requestAnimationFrame(smoothBridgeScrub);
+  // update the slim section progress bar (width) on scroll
+  const sectionProgressEl = document.querySelector('.section-progress');
+  function updateSectionProgressBar() {
+    const p = bridgeProgress();
+    if (sectionProgressEl) sectionProgressEl.style.setProperty('--progress', `${Math.round(p * 100)}%`);
+  }
+  addEventListener('scroll', () => requestAnimationFrame(updateSectionProgressBar), { passive: true });
+  addEventListener('resize', () => requestAnimationFrame(updateSectionProgressBar));
+  // initial fill
+  requestAnimationFrame(updateSectionProgressBar);
 })();
 
 // Origin section transition: fade/slide in when scrolled into view
 (function setupOriginTransition(){
   const origin = document.getElementById('origin');
+  const transitionEl = document.getElementById('sectionTransition');
   if (!origin) return;
   try {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) origin.classList.add('is-visible');
-        else origin.classList.remove('is-visible');
+        if (entry.isIntersecting) {
+          origin.classList.add('is-visible');
+          if (transitionEl && !reducedMotion) {
+            transitionEl.classList.add('is-active');
+            // remove after animation finishes to allow replay
+            setTimeout(() => transitionEl.classList.remove('is-active'), 900);
+          }
+        } else {
+          origin.classList.remove('is-visible');
+          if (transitionEl) transitionEl.classList.remove('is-active');
+        }
       });
     }, { threshold: 0.12 });
     io.observe(origin);
