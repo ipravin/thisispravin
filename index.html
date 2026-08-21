@@ -4,70 +4,182 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>This Is Pravin</title>
+  <meta name="description" content="Pravin Agarwal: automotive, strategy, product, and building. A cinematic record of a trajectory.">
+  <title>Pravin Agarwal | Automotive, Strategy, Product</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">P/</div>
-      <div class="chapter" id="chapterIndicator">01</div>
-    </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="status">
-      <span class="label">CURRENTLY</span>
-      <span class="city" id="cityIndicator">PARIS, FR</span>
-      <span class="clock" id="clock">00:00</span>
+  <header class="site-nav" aria-label="Primary navigation">
+    <a class="nav-mark" href="#arrival" aria-label="Pravin Agarwal home">P/A</a>
+    <nav class="nav-links" aria-label="Chapters">
+      <a href="#moving">Moving</a>
+      <a href="#building">Building</a>
+      <a href="#thinking">Thinking</a>
+      <a href="#connect">Connect</a>
+    </nav>
+    <div class="chapter-indicator" aria-live="polite">
+      <span id="chapterNumber">01</span>
+      <span id="chapterName">Arrival</span>
     </div>
   </header>
 
-  <main>
-    <section class="hero" id="hero">
-      <div class="hero-inner">
-        <img src="assets/eiffel.jpg" class="hero-image" id="heroImage" alt="Pravin in Paris">
+  <main id="main">
+    <section class="chapter chapter-arrival" id="arrival" data-chapter="01" data-name="Arrival">
+      <div class="arrival-media" aria-hidden="true">
+        <img class="arrival-image" id="heroImage" src="assets/eiffel-web.jpg" alt="">
         <div id="portal"></div>
-
-        <div class="hero-content">
-          <h1>Somewhere between almosts<br>and what ifs.</h1>
-          <p>Kolkata. Paris. Somewhere ahead.</p>
+      </div>
+      <div class="section-shell arrival-shell">
+        <p class="meta-label reveal">Automotive / Strategy / Product / Building</p>
+        <h1 class="arrival-title reveal">Pravin Agarwal</h1>
+        <p class="arrival-statement reveal">
+          Building a point of view at the intersection of mobility, product thinking, and strategic execution.
+        </p>
+        <div class="arrival-footer reveal">
+          <span>Currently shaped by Paris, Kolkata, and the road ahead.</span>
+          <a class="text-link" href="#moving">Follow the trajectory</a>
         </div>
-
-        <div class="scroll-indicator" aria-hidden="true">SCROLL TO CONTINUE</div>
-        <div class="section-progress" aria-hidden="true">01 / 02</div>
       </div>
     </section>
-    <section class="bridge-section" id="origin" aria-label="Origin: Kolkata">
 
-    <section class="section-transition" id="sectionTransition" aria-hidden="true">
-      <div class="transition-bar" aria-hidden="true"></div>
-    </section>
-
-    <section class="bridge-section" id="origin" aria-label="Origin: Kolkata">
-      <div class="bridge-sticky">
-        <div class="bridge-photo" id="bridgePhoto" role="img" aria-label="Howrah Bridge, Kolkata"></div>
-        <canvas class="bridge-canvas" id="bridgeCanvas" aria-hidden="true"></canvas>
-
-        <h2 class="bridge-heading section-heading" id="bridgeHeading">Building Blocks.</h2>
-        <div class="bridge-status" id="bridgeStatus">
-          <span id="bridgeStatusText">constructing</span>
-          <i><b id="bridgeProgress"></b></i>
-        </div>
-        <div class="origin-formation" id="originFormation">
-          <span class="origin-tag">Origin / 02</span>
-          <h2>I learned to love cars before I ever drove one.</h2>
+    <section class="chapter chapter-moving" id="moving" data-chapter="02" data-name="Moving">
+      <div class="moving-cinema">
+        <video class="moving-video" src="assets/Howrahbridgeassembling_scrub.mp4" poster="assets/howrah-bridge.jpg" muted playsinline preload="metadata" aria-label="Howrah Bridge assembly as a metaphor for formation"></video>
+        <div class="moving-overlay"></div>
+        <div class="moving-copy reveal">
+          <p class="meta-label">02 / Moving</p>
+          <h2>Different environments became different instruments.</h2>
           <p>
-            Growing up in Kolkata, cars weren't just machines. They were movement,<br>
-            freedom, possibility. Long before I understood strategy, product or business,<br>
-            I was fascinated by where they could take people.
+            India, engineering, ESSEC, Duke, consulting, Stellantis, automotive. Not a linear CV, but a progression of contexts that sharpened how Pravin sees systems, people, and movement.
           </p>
         </div>
-        <p class="bridge-caption" id="bridgeCaption">A roadside.<br>Cars passing.<br>Dreaming before knowing.</p>
-        <p class="bridge-location" id="bridgeLocation">Howrah Bridge<br>Kolkata, India</p>
+      </div>
+      <div class="section-shell movement-grid" aria-label="Trajectory progression">
+        <div class="movement-item reveal">
+          <span>India</span>
+          <p>Origin, appetite, motion before vocabulary.</p>
+        </div>
+        <div class="movement-item reveal">
+          <span>Engineering</span>
+          <p>Learning to respect systems, constraints, and what makes things move.</p>
+        </div>
+        <div class="movement-item reveal">
+          <span>ESSEC</span>
+          <p>Strategy, markets, and the business lens around technology.</p>
+        </div>
+        <div class="movement-item reveal">
+          <span>Duke</span>
+          <p>A wider operating context and a sharper international perspective.</p>
+        </div>
+        <div class="movement-item reveal">
+          <span>Consulting</span>
+          <p>Problem framing, executive clarity, and disciplined decision-making.</p>
+        </div>
+        <div class="movement-item reveal">
+          <span>Stellantis</span>
+          <p>Automotive as a living system of product, brand, scale, and transition.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter-building" id="building" data-chapter="03" data-name="Building">
+      <div class="section-shell">
+        <div class="section-intro reveal">
+          <p class="meta-label">03 / Building</p>
+          <h2>Work led by context, judgment, and consequence.</h2>
+          <p>Flagship experiences are presented as selected signals: what was happening, what Pravin owned, how he thought, and what changed.</p>
+        </div>
+
+        <div class="project-stack">
+          <article class="project-feature reveal">
+            <div class="project-index">01</div>
+            <div>
+              <p class="meta-label">Automotive / Product</p>
+              <h3>Mobility Product Direction</h3>
+            </div>
+            <p>Framing customer, business, and operational constraints into sharper product choices for a changing mobility market.</p>
+            <a class="text-link" href="#connect">Discuss the work</a>
+          </article>
+
+          <article class="project-feature reveal">
+            <div class="project-index">02</div>
+            <div>
+              <p class="meta-label">Strategy / Analysis</p>
+              <h3>Market And Business Signals</h3>
+            </div>
+            <p>Turning complex market information into decisions that leaders can understand, compare, and act on.</p>
+            <a class="text-link" href="#connect">Discuss the work</a>
+          </article>
+
+          <article class="project-feature project-feature-media reveal">
+            <img src="assets/citroen-web.jpg" alt="Citroen automotive detail">
+            <div class="project-index">03</div>
+            <div>
+              <p class="meta-label">Automotive / Brand / Execution</p>
+              <h3>From Vehicle To Experience</h3>
+            </div>
+            <p>Exploring how product, positioning, and execution combine to make mobility feel coherent beyond the machine itself.</p>
+            <a class="text-link" href="#connect">Discuss the work</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter-thinking" id="thinking" data-chapter="04" data-name="Thinking">
+      <div class="section-shell thinking-grid">
+        <div class="section-intro reveal">
+          <p class="meta-label">04 / Thinking</p>
+          <h2>Notes from the edge of mobility and product.</h2>
+        </div>
+        <div class="thought-list">
+          <article class="thought reveal">
+            <span>Automotive</span>
+            <h3>The future car is not just a better object. It is a clearer relationship.</h3>
+          </article>
+          <article class="thought reveal">
+            <span>Product</span>
+            <h3>Good products reduce the distance between intent and movement.</h3>
+          </article>
+          <article class="thought reveal">
+            <span>Strategy</span>
+            <h3>Strategy earns trust when it makes tradeoffs visible.</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter-becoming" id="becoming" data-chapter="05" data-name="Becoming">
+      <div class="section-shell becoming-shell">
+        <p class="meta-label reveal">05 / Becoming</p>
+        <h2 class="reveal">There is more coming.</h2>
+        <p class="reveal">
+          The next direction is shaped by questions around mobility, intelligent products, business model transition, and the kinds of systems that help people move with more confidence.
+        </p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-connect" id="connect" data-chapter="06" data-name="Connect">
+      <div class="section-shell connect-shell">
+        <div class="section-intro reveal">
+          <p class="meta-label">06 / Connect</p>
+          <h2>Start a conversation.</h2>
+        </div>
+        <div class="connect-actions reveal">
+          <a class="button" href="mailto:hello@pravinagarwal.com">Email Pravin</a>
+          <a class="text-link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
       </div>
     </section>
   </main>
 
   <script type="module" src="script.js"></script>
 </body>
+
 </html>
